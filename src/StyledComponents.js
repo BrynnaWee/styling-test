@@ -1,11 +1,48 @@
 import styled, {css} from 'styled-components';
 
+const size = {
+    desktop: 1024,
+    tablet: 768
+}
+
+const media = Object.keys(size).reduce((acc,label)=>{
+    acc[label] = (...args) => css`
+        @media(max-width: ${size[label]/16}em){
+            ${css(...args)};
+        }
+    `;
+
+    return acc;
+}, {});
+
+
+// const Box = styled.div`
+//     background: ${props => props.color || 'blue'};
+//     padding: 1rem;
+//     display: flex;
+
+//     width: 1024px;
+//     margin: 0 auto;
+
+//     @media(max-width:1024px){
+//         width: 768px;
+//     }
+//     @media(max-width:768px){
+//         width:100%;
+//     }
+// `;
+
+
 const Box = styled.div`
     background: ${props => props.color || 'blue'};
     padding: 1rem;
     display: flex;
-`;
 
+    width: 1024px;
+    margin: 0 auto;
+    ${media.desktop`width:768px;`}
+    ${media.tablet`width:100%;`}
+`;
 
 const Button = styled.button`
     backgorund: white;
